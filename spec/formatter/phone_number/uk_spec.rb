@@ -10,6 +10,24 @@ module Formatter
         expect(described_class.format(uk_phone_number)).to eq('+447123456789')
       end
 
+      it 'formats the number correctly if it is missing its prefix' do
+        uk_phone_number = '7123456789'
+
+        expect(described_class.format(uk_phone_number)).to eq('+447123456789')
+      end
+
+      it 'formats the number correctly when it starts with 44' do
+        uk_phone_number = '447123456789'
+
+        expect(described_class.format(uk_phone_number)).to eq('+447123456789')
+      end
+
+      it 'formats the number correctly when it starts with +44' do
+        uk_phone_number = '+447123456789'
+
+        expect(described_class.format(uk_phone_number)).to eq('+447123456789')
+      end
+
       it 'returns an error if the phone number is too short' do
         short_number = '0712345'
 

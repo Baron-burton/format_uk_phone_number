@@ -17,8 +17,8 @@ module Formatter
         end
 
         def validate
-          validate_phone_number_length
           validate_is_a_mobile_number
+          validate_phone_number_length
         end
 
         private
