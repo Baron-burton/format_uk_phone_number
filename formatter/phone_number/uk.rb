@@ -2,7 +2,7 @@ require_relative 'uk/validations'
 module Formatter
   module PhoneNumber
     class UK
-      COUNTRY_CODE = '44'.freeze
+      PREFIX = '+44'.freeze
 
       class << self
         def format(phone_number)
@@ -11,7 +11,7 @@ module Formatter
           phone_number = remove_prefixes(phone_number)
           validate_phone_number(phone_number)
 
-          phone_number.prepend("+#{COUNTRY_CODE}")
+          phone_number.prepend(PREFIX)
         end
 
         private
