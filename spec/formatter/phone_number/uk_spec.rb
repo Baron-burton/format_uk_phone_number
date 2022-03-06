@@ -10,7 +10,7 @@ module Formatter
         expect(described_class.format(uk_phone_number)).to eq('+447123456789')
       end
 
-      it 'removes any spaces' do
+      it 'removes any whitespace' do
         uk_phone_number = ' 0712 345 6789 '
 
         expect(described_class.format(uk_phone_number)).to eq('+447123456789')

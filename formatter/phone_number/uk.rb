@@ -2,6 +2,7 @@ require_relative 'uk/validations'
 module Formatter
   module PhoneNumber
     class UK
+      DELETABLE_PREFIXES = ['0', '44', '+44'].freeze
       PREFIX = '+44'.freeze
 
       def self.format(phone_number)
@@ -31,17 +32,9 @@ module Formatter
       end
 
       def remove_prefixes
-        if @phone_number.start_with?('0')
-          chop_first_characters
-        elsif @phone_number.start_with?('44')
-          chop_first_characters(start_from: 2)
-        elsif @phone_number.start_with?('+44')
-          chop_first_characters(start_from: 3)
+        DELETABLE_PREFIXES.each do |deletable_prefix|
+          @phone_number.delete_prefix!(deletable_prefix)
         end
-      end
-
-      def chop_first_characters(start_from: 1)
-        @phone_number = @phone_number[start_from..-1]
       end
     end
   end
