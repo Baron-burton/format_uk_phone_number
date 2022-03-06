@@ -10,6 +10,12 @@ module Formatter
         expect(described_class.format(uk_phone_number)).to eq('+447123456789')
       end
 
+      it 'removes any spaces' do
+        uk_phone_number = ' 0712 345 6789 '
+
+        expect(described_class.format(uk_phone_number)).to eq('+447123456789')
+      end
+
       it 'formats the number correctly if it is missing its prefix' do
         uk_phone_number = '7123456789'
 
@@ -52,6 +58,16 @@ module Formatter
         wrong_number = '09123456789'
 
         expect{ described_class.format(wrong_number) }
+          .to raise_error(
+            Formatter::PhoneNumber::UK::InvalidMobileFormat,
+            'This is not a valid UK mobile phone number.'
+          )
+      end
+
+      it 'returns an error if the input is not a number at all' do
+        not_a_number = 'some string'
+
+        expect{ described_class.format(not_a_number) }
           .to raise_error(
             Formatter::PhoneNumber::UK::InvalidMobileFormat,
             'This is not a valid UK mobile phone number.'

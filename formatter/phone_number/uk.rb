@@ -13,8 +13,7 @@ module Formatter
       end
 
       def format
-        @phone_number.strip!
-
+        remove_whitespace
         remove_prefixes
         validate_phone_number
 
@@ -22,6 +21,10 @@ module Formatter
       end
 
       private
+
+      def remove_whitespace
+        @phone_number.gsub!(' ', '')
+      end
 
       def validate_phone_number
         Formatter::PhoneNumber::UK::Validations.validate(@phone_number)
